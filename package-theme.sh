@@ -22,4 +22,4 @@ zip -r "$OUTPUT" \
 
 echo "Created $OUTPUT"
 echo "Verify the theme folders sit at the zip root:"
-unzip -l "$OUTPUT" | head -15
+unzip -l "$OUTPUT" | head -15 || true
