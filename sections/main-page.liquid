@@ -1,0 +1,17 @@
+{{ 'template-page.css' | asset_url | stylesheet_tag }}
+
+<section class="section page-width">
+  <div class="section-heading section-heading--center" data-animate>
+    <h1 class="section-title">{{ page.title }}</h1>
+  </div>
+  <div class="about-content" data-animate>
+    {{ page.content }}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Page content",
+  "settings": []
+}
+{% endschema %}

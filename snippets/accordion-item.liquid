@@ -1,0 +1,10 @@
+{%- comment -%}
+  Renders a single native <details> accordion row. Accepts: title, content (html), open (bool)
+{%- endcomment -%}
+<details class="accordion__item"{% if open %} open{% endif %}>
+  <summary class="accordion__trigger">
+    <span>{{ title }}</span>
+    {% render 'icon', name: 'chevron-down' %}
+  </summary>
+  <div class="accordion__content">{{ content }}</div>
+</details>

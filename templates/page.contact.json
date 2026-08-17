@@ -1,0 +1,10 @@
+{
+  "sections": {
+    "contact-content": {
+      "type": "contact-content"
+    }
+  },
+  "order": [
+    "contact-content"
+  ]
+}

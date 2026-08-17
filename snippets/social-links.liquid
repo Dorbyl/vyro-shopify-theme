@@ -1,0 +1,28 @@
+{%- comment -%}
+  Renders social icon links from global theme settings. Hides platforms with no URL set.
+{%- endcomment -%}
+{%- liquid
+  assign has_social = false
+  if settings.social_instagram != blank or settings.social_tiktok != blank or settings.social_facebook != blank or settings.social_twitter != blank or settings.social_youtube != blank
+    assign has_social = true
+  endif
+-%}
+{%- if has_social -%}
+  <ul class="{{ class | default: 'site-footer__social' }}" role="list">
+    {%- if settings.social_instagram != blank -%}
+      <li><a href="{{ settings.social_instagram }}" aria-label="VYRO on Instagram" target="_blank" rel="noopener">{% render 'icon', name: 'instagram' %}</a></li>
+    {%- endif -%}
+    {%- if settings.social_tiktok != blank -%}
+      <li><a href="{{ settings.social_tiktok }}" aria-label="VYRO on TikTok" target="_blank" rel="noopener">{% render 'icon', name: 'tiktok' %}</a></li>
+    {%- endif -%}
+    {%- if settings.social_facebook != blank -%}
+      <li><a href="{{ settings.social_facebook }}" aria-label="VYRO on Facebook" target="_blank" rel="noopener">{% render 'icon', name: 'facebook' %}</a></li>
+    {%- endif -%}
+    {%- if settings.social_twitter != blank -%}
+      <li><a href="{{ settings.social_twitter }}" aria-label="VYRO on X" target="_blank" rel="noopener">{% render 'icon', name: 'twitter' %}</a></li>
+    {%- endif -%}
+    {%- if settings.social_youtube != blank -%}
+      <li><a href="{{ settings.social_youtube }}" aria-label="VYRO on YouTube" target="_blank" rel="noopener">{% render 'icon', name: 'youtube' %}</a></li>
+    {%- endif -%}
+  </ul>
+{%- endif -%}

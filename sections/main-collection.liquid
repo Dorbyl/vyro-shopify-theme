@@ -1,0 +1,107 @@
+{{ 'template-collection.css' | asset_url | stylesheet_tag }}
+{{ 'component-product-card.css' | asset_url | stylesheet_tag }}
+
+<section class="collection-banner">
+  {%- if collection.image -%}
+    <div class="collection-banner__image">
+      {{ collection.image | image_url: width: 1600 | image_tag: alt: '', loading: 'eager' }}
+    </div>
+  {%- endif -%}
+  <div class="page-width collection-banner__inner">
+    <h1 class="collection-banner__title">{{ collection.title }}</h1>
+    {%- if collection.description != blank -%}
+      <div class="collection-banner__description">{{ collection.description }}</div>
+    {%- endif -%}
+  </div>
+</section>
+
+<div class="page-width">
+  {%- paginate collection.products by section.settings.products_per_page -%}
+    <form id="CollectionFilterForm" method="get">
+      <div class="collection-toolbar">
+        <span class="collection-toolbar__count">{{ 'collections.general.items_count' | t: count: collection.products_count }}</span>
+        <div class="collection-toolbar__controls">
+          <label for="SortBy-{{ section.id }}" class="visually-hidden">{{ 'collections.general.sort_by' | t }}</label>
+          <select name="sort_by" id="SortBy-{{ section.id }}" class="select" onchange="this.form.submit()">
+            {%- for option in collection.sort_options -%}
+              <option value="{{ option.value }}"{% if option.value == collection.sort_by %} selected{% endif %}>{{ option.name }}</option>
+            {%- endfor -%}
+          </select>
+        </div>
+      </div>
+
+      <div class="collection-layout">
+        {%- if collection.filters.size > 0 -%}
+          <aside class="collection-filters">
+            {%- for filter in collection.filters -%}
+              <div class="collection-filters__group">
+                <h3 class="collection-filters__group-title">{{ filter.label }}</h3>
+                {%- if filter.type == 'price_range' -%}
+                  <div style="display:flex; gap:0.5rem;">
+                    <input class="input" type="number" name="{{ filter.min_value.param_name }}" value="{{ filter.min_value.value }}" placeholder="Min" inputmode="numeric">
+                    <input class="input" type="number" name="{{ filter.max_value.param_name }}" value="{{ filter.max_value.value }}" placeholder="Max" inputmode="numeric">
+                  </div>
+                {%- else -%}
+                  {%- for value in filter.values -%}
+                    <label class="collection-filters__option">
+                      <input
+                        type="checkbox"
+                        name="{{ value.param_name }}"
+                        value="{{ value.value }}"
+                        {% if value.active %}checked{% endif %}
+                        {% if value.count == 0 and value.active == false %}disabled{% endif %}
+                        onchange="this.form.submit()"
+                      >
+                      {{ value.label }} ({{ value.count }})
+                    </label>
+                  {%- endfor -%}
+                {%- endif -%}
+              </div>
+            {%- endfor -%}
+            {%- liquid
+              assign has_active_filters = false
+              for filter in collection.filters
+                if filter.active_values.size > 0
+                  assign has_active_filters = true
+                endif
+              endfor
+            -%}
+            {%- if has_active_filters -%}
+              <a href="{{ collection.url }}" class="btn btn-secondary btn-sm">{{ 'collections.general.clear_all' | t }}</a>
+            {%- endif -%}
+          </aside>
+        {%- endif -%}
+
+        <div class="collection-grid-wrap">
+          {%- if collection.products.size > 0 -%}
+            <div class="grid-auto grid-auto--4">
+              {%- for product in collection.products -%}
+                {% render 'product-card', product: product %}
+              {%- endfor -%}
+            </div>
+            {% render 'pagination' %}
+          {%- else -%}
+            <p class="collection-empty">{{ 'collections.general.no_products' | t }}</p>
+          {%- endif -%}
+        </div>
+      </div>
+    </form>
+  {%- endpaginate -%}
+</div>
+
+{% schema %}
+{
+  "name": "Collection pages",
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "label": "Products per page",
+      "min": 8,
+      "max": 48,
+      "step": 4,
+      "default": 16
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,43 @@
+<div class="cart-drawer" data-cart-drawer aria-hidden="true">
+  <div class="cart-drawer__overlay" data-cart-drawer-overlay></div>
+  <div class="cart-drawer__panel" role="dialog" aria-modal="true" aria-label="{{ 'general.cart.title' | t }}">
+    <div class="cart-drawer__header">
+      <h2 class="cart-drawer__title">{{ 'general.cart.title' | t }}</h2>
+      <button class="header-icon-btn" data-panel-close aria-label="{{ 'general.accessibility.close' | t }}">
+        {% render 'icon', name: 'close' %}
+      </button>
+    </div>
+
+    <div class="cart-drawer__body">
+      {%- if cart.item_count > 0 -%}
+        {%- for item in cart.items -%}
+          {% render 'cart-item', item: item, line: forloop.index %}
+        {%- endfor -%}
+      {%- else -%}
+        <div class="cart-drawer__empty">
+          {% render 'icon', name: 'cart', class: 'icon--large' %}
+          <p>{{ 'general.cart.empty' | t }}</p>
+          <a href="{{ routes.root_url }}" class="btn btn-secondary" data-panel-close>{{ 'general.cart.empty_link' | t }}</a>
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- if cart.item_count > 0 -%}
+      <div class="cart-drawer__footer">
+        <div class="cart-drawer__subtotal-row">
+          <span>{{ 'general.cart.subtotal' | t }}</span>
+          <span>{{ cart.total_price | money }}</span>
+        </div>
+        <p class="cart-drawer__note">{{ 'general.cart.shipping_taxes_note' | t }}</p>
+        <a href="{{ routes.cart_url }}" class="btn btn-secondary btn-block" data-panel-close>{{ 'general.cart.view_cart' | t }}</a>
+        <a href="{{ routes.cart_url }}/checkout" class="btn btn-primary btn-block">{{ 'general.cart.checkout' | t }}</a>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Cart drawer"
+}
+{% endschema %}

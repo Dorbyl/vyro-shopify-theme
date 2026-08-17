@@ -1,0 +1,43 @@
+{{ 'template-collection.css' | asset_url | stylesheet_tag }}
+{{ 'component-product-card.css' | asset_url | stylesheet_tag }}
+
+<div class="page-width section">
+  <div class="search-results-header" data-animate>
+    <form action="{{ routes.search_url }}" method="get" role="search">
+      <input type="hidden" name="type" value="product">
+      <div style="display:flex; gap:0.75rem; max-width:480px;">
+        <input class="input" type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.search.placeholder' | t }}" aria-label="{{ 'general.search.placeholder' | t }}">
+        <button type="submit" class="btn btn-primary">{{ 'general.search.submit' | t }}</button>
+      </div>
+    </form>
+    {%- if search.performed -%}
+      <p class="section-subtitle" style="margin-top:1rem;">
+        {%- if search.results_count > 0 -%}
+          {{ 'general.search.results_for_html' | t: terms: search.terms }}
+        {%- else -%}
+          {{ 'general.search.no_results_html' | t: terms: search.terms }}
+        {%- endif -%}
+      </p>
+    {%- endif -%}
+  </div>
+
+  {%- if search.performed and search.results.size > 0 -%}
+    {%- paginate search.results by 16 -%}
+      <div class="grid-auto grid-auto--4">
+        {%- for item in search.results -%}
+          {%- if item.object_type == 'product' -%}
+            {% render 'product-card', product: item %}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+      {% render 'pagination' %}
+    {%- endpaginate -%}
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Search results",
+  "settings": []
+}
+{% endschema %}

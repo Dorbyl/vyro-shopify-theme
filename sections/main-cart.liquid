@@ -1,0 +1,45 @@
+{{ 'component-cart.css' | asset_url | stylesheet_tag }}
+
+<div class="page-width section" data-cart-page>
+  {%- if cart.item_count > 0 -%}
+    <h1 class="section-title" style="margin-bottom: 2rem;">{{ 'general.cart.title' | t }}</h1>
+    <div class="cart-page__grid">
+      <div class="cart-page__items">
+        {%- for item in cart.items -%}
+          {% render 'cart-item', item: item, line: forloop.index %}
+        {%- endfor -%}
+      </div>
+
+      <div class="cart-page__summary surface">
+        <div class="cart-page__summary-row">
+          <span>{{ 'general.cart.subtotal' | t }}</span>
+          <span>{{ cart.total_price | money }}</span>
+        </div>
+        <p class="cart-drawer__note">{{ 'general.cart.shipping_taxes_note' | t }}</p>
+
+        {%- if settings.show_cart_note -%}
+          <div class="field" style="margin-top:1rem;">
+            <label for="CartNote">Order note</label>
+            <textarea id="CartNote" name="note" class="textarea" data-cart-note>{{ cart.note }}</textarea>
+          </div>
+        {%- endif -%}
+
+        <a href="{{ routes.cart_url }}/checkout" class="btn btn-primary btn-block" style="margin-top:1.25rem;">{{ 'general.cart.checkout' | t }}</a>
+        <a href="{{ routes.root_url }}" class="btn btn-secondary btn-block" style="margin-top:0.75rem;">{{ 'general.cart.empty_link' | t }}</a>
+      </div>
+    </div>
+  {%- else -%}
+    <div class="cart-page__empty">
+      {% render 'icon', name: 'cart', class: 'icon--large' %}
+      <p>{{ 'general.cart.empty' | t }}</p>
+      <a href="{{ routes.root_url }}" class="btn btn-primary">{{ 'general.cart.empty_link' | t }}</a>
+    </div>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Cart page",
+  "settings": []
+}
+{% endschema %}

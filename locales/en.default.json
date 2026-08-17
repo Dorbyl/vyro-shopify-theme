@@ -1,0 +1,114 @@
+{
+  "general": {
+    "meta": {
+      "tags": "Tagged \"{{ tags }}\""
+    },
+    "search": {
+      "title": "Search",
+      "placeholder": "Search products",
+      "submit": "Search",
+      "no_results_html": "No results found for \"{{ terms }}\". Try a different search.",
+      "results_for_html": "Showing results for \"{{ terms }}\""
+    },
+    "cart": {
+      "title": "Your cart",
+      "empty": "Your cart is empty",
+      "empty_link": "Continue shopping",
+      "subtotal": "Subtotal",
+      "checkout": "Check out",
+      "remove": "Remove",
+      "quantity": "Quantity",
+      "view_cart": "View cart",
+      "shipping_taxes_note": "Shipping, taxes and discounts calculated at checkout.",
+      "item_added": "Added to cart",
+      "update_error": "There was an error updating your cart. Please try again."
+    },
+    "accessibility": {
+      "skip_to_content": "Skip to content",
+      "close": "Close",
+      "menu": "Menu",
+      "open_menu": "Open menu",
+      "close_menu": "Close menu",
+      "cart_items": "{{ count }} items in cart",
+      "open_cart": "Open cart",
+      "next_slide": "Next",
+      "previous_slide": "Previous",
+      "decrease_quantity": "Decrease quantity",
+      "increase_quantity": "Increase quantity"
+    }
+  },
+  "header": {
+    "shop": "Shop",
+    "about": "About",
+    "faq": "FAQ",
+    "contact": "Contact",
+    "account": "Account",
+    "log_in": "Log in"
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Add to cart",
+      "sold_out": "Sold out",
+      "unavailable": "Unavailable",
+      "buy_now": "Buy it now",
+      "quantity": "Quantity",
+      "description": "Description",
+      "sku": "SKU",
+      "vendor": "Vendor",
+      "on_sale": "Sale",
+      "regular_price": "Regular price",
+      "sale_price": "Sale price",
+      "shipping_info": "Shipping information",
+      "shipping_info_content": "Orders are processed within 1-2 business days. Delivery times and costs are calculated at checkout based on your location within South Africa.",
+      "returns_info": "Returns &amp; exchanges",
+      "returns_info_content": "Not the right fit? See our Shipping &amp; Returns policy for details on how to arrange a return or exchange.",
+      "related_products": "You may also like",
+      "view_details": "View details",
+      "quick_add": "Quick add",
+      "choose_options": "Choose options"
+    }
+  },
+  "collections": {
+    "general": {
+      "title": "Shop",
+      "no_products": "No products found in this collection.",
+      "sort_by": "Sort by",
+      "filter_by": "Filter",
+      "clear_all": "Clear all",
+      "apply_filters": "Apply",
+      "items_count": "{{ count }} products"
+    },
+    "sorting": {
+      "featured": "Featured",
+      "best_selling": "Best selling",
+      "az": "Alphabetically, A-Z",
+      "za": "Alphabetically, Z-A",
+      "price_ascending": "Price, low to high",
+      "price_descending": "Price, high to low",
+      "date_new": "Newest",
+      "date_old": "Oldest"
+    }
+  },
+  "newsletter": {
+    "placeholder": "Enter your email",
+    "submit": "Sign up",
+    "success": "Thanks for subscribing.",
+    "error": "Please enter a valid email address."
+  },
+  "contact": {
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone (optional)",
+      "message": "Message",
+      "submit": "Send message",
+      "success": "Thanks for reaching out — we'll get back to you soon.",
+      "error": "Something went wrong. Please try again."
+    }
+  },
+  "404": {
+    "title": "Page not found",
+    "subtext": "The page you're looking for doesn't exist or has moved.",
+    "link": "Back to homepage"
+  }
+}

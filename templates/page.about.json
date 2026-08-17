@@ -1,0 +1,10 @@
+{
+  "sections": {
+    "about-content": {
+      "type": "about-content"
+    }
+  },
+  "order": [
+    "about-content"
+  ]
+}

@@ -1,0 +1,109 @@
+{{ 'template-page.css' | asset_url | stylesheet_tag }}
+
+<section class="section">
+  <div class="page-width">
+    <div class="section-heading" data-animate>
+      <h1 class="section-title">{{ section.settings.heading }}</h1>
+      {%- if section.settings.subheading != blank -%}
+        <p class="section-subtitle">{{ section.settings.subheading }}</p>
+      {%- endif -%}
+    </div>
+
+    <div class="contact-layout" data-animate>
+      {%- form 'contact', id: 'ContactForm', class: 'contact-form' -%}
+        {%- if form.posted_successfully? -%}
+          <p class="form-status" role="status">{{ 'contact.form.success' | t }}</p>
+        {%- elsif form.errors -%}
+          <p class="form-status" data-error role="alert">{{ 'contact.form.error' | t }}</p>
+        {%- endif -%}
+
+        <div class="contact-form__row contact-form__row--split">
+          <div class="field">
+            <label for="ContactFormName">{{ 'contact.form.name' | t }}</label>
+            <input type="text" id="ContactFormName" class="input" name="contact[name]" autocomplete="name">
+          </div>
+          <div class="field">
+            <label for="ContactFormEmail">{{ 'contact.form.email' | t }}</label>
+            <input type="email" id="ContactFormEmail" class="input" name="contact[email]" autocomplete="email" required>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="ContactFormPhone">{{ 'contact.form.phone' | t }}</label>
+          <input type="tel" id="ContactFormPhone" class="input" name="contact[phone]" autocomplete="tel">
+        </div>
+
+        <div class="field">
+          <label for="ContactFormMessage">{{ 'contact.form.message' | t }}</label>
+          <textarea id="ContactFormMessage" class="textarea" name="contact[body]" rows="6" required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">{{ 'contact.form.submit' | t }}</button>
+      {%- endform -%}
+
+      <div class="contact-info">
+        {%- if settings.contact_email != blank -%}
+          <div class="contact-info__card surface">
+            <span class="contact-info__icon">{% render 'icon', name: 'mail' %}</span>
+            <div>
+              <p class="contact-info__title">Email</p>
+              <p class="contact-info__text"><a href="mailto:{{ settings.contact_email }}">{{ settings.contact_email }}</a></p>
+            </div>
+          </div>
+        {%- endif -%}
+
+        {%- if settings.whatsapp_number != blank -%}
+          <div class="contact-info__card surface">
+            <span class="contact-info__icon">{% render 'icon', name: 'whatsapp' %}</span>
+            <div>
+              <p class="contact-info__title">WhatsApp</p>
+              <p class="contact-info__text"><a href="https://wa.me/{{ settings.whatsapp_number }}" target="_blank" rel="noopener">Message us on WhatsApp</a></p>
+            </div>
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.response_message != blank -%}
+          <div class="contact-info__card surface">
+            <div>
+              <p class="contact-info__title">Response time</p>
+              <p class="contact-info__text">{{ section.settings.response_message }}</p>
+            </div>
+          </div>
+        {%- endif -%}
+
+        {% render 'social-links', class: 'site-footer__social' %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Contact content",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "GET IN TOUCH"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Supporting text",
+      "default": "Questions about an order or a product? Send us a message and we'll get back to you."
+    },
+    {
+      "type": "text",
+      "id": "response_message",
+      "label": "Response time message",
+      "default": "We usually reply within 1-2 business days."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact content"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,17 @@
+{%- comment -%}
+  Renders a product/variant price with compare-at support.
+  Accepts: product, variant (optional — defaults to product.selected_or_first_available_variant), class, data_attrs (bool)
+{%- endcomment -%}
+{%- liquid
+  assign target = variant | default: product.selected_or_first_available_variant
+  assign compare_at = target.compare_at_price
+  assign current_price = target.price
+  assign on_sale = false
+  if compare_at != blank and compare_at > current_price
+    assign on_sale = true
+  endif
+-%}
+<div class="price{% if on_sale %} price--on-sale{% endif %}{% if class %} {{ class }}{% endif %}"{% if data_attrs %} data-price-wrap{% endif %}>
+  <span class="price__regular"{% if data_attrs %} data-price-regular{% endif %}>{{ current_price | money }}</span>
+  <span class="price__compare"{% if data_attrs %} data-price-compare{% endif %}{% unless on_sale %} hidden{% endunless %}>{{ compare_at | money }}</span>
+</div>

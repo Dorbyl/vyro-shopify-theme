@@ -1,0 +1,38 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero"
+    },
+    "trust-bar": {
+      "type": "trust-bar"
+    },
+    "featured-collection": {
+      "type": "featured-collection"
+    },
+    "featured-product": {
+      "type": "featured-product"
+    },
+    "why-vyro": {
+      "type": "why-vyro"
+    },
+    "setup-section": {
+      "type": "setup-section"
+    },
+    "testimonials": {
+      "type": "testimonials"
+    },
+    "newsletter": {
+      "type": "newsletter"
+    }
+  },
+  "order": [
+    "hero",
+    "trust-bar",
+    "featured-collection",
+    "featured-product",
+    "why-vyro",
+    "setup-section",
+    "testimonials",
+    "newsletter"
+  ]
+}

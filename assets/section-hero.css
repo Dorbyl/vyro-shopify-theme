@@ -1,0 +1,111 @@
+.hero {
+  position: relative;
+  padding-top: clamp(2.5rem, 2rem + 2vw, 4rem);
+  padding-bottom: clamp(3rem, 2rem + 3vw, 5rem);
+  overflow: hidden;
+}
+
+.hero__grid {
+  display: grid;
+  gap: 2.5rem;
+  align-items: center;
+  grid-template-columns: 1fr;
+}
+
+@media screen and (min-width: 990px) {
+  .hero__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+  }
+}
+
+.hero__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  padding: 0.4rem 0.8rem;
+  border: 1px solid rgba(37, 99, 255, 0.35);
+  border-radius: 999px;
+  background: rgba(37, 99, 255, 0.08);
+}
+
+.hero__title {
+  font-size: clamp(2.5rem, 1.9rem + 3.2vw, 4.5rem);
+  color: var(--color-text-primary);
+  line-height: 1.02;
+}
+
+.hero__subtitle {
+  font-size: clamp(1.0625rem, 1rem + 0.4vw, 1.25rem);
+  color: var(--color-text-secondary);
+  max-width: 480px;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  margin-top: 0.5rem;
+}
+
+.hero__media {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 40%, rgba(37, 99, 255, 0.22), transparent 65%), var(--color-surface);
+  border: 1px solid var(--color-border);
+}
+
+.hero__media::before {
+  content: "";
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  width: 70%;
+  height: 70%;
+  background: radial-gradient(circle, var(--accent-glow), transparent 70%);
+  filter: blur(40px);
+  transform: translateX(-50%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero__media img {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero__media-placeholder {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-secondary);
+}
+
+.hero__media-placeholder svg {
+  width: 40%;
+  height: 40%;
+  opacity: 0.35;
+}

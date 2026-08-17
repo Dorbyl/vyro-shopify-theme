@@ -1,0 +1,23 @@
+{%- comment -%}
+  Outputs :root CSS custom properties driven by theme settings.
+  Rendered inline in layout/theme.liquid <head>.
+{%- endcomment -%}
+:root {
+  --color-background: {{ settings.color_background }};
+  --color-surface: {{ settings.color_surface }};
+  --color-text-primary: {{ settings.color_text_primary }};
+  --color-text-secondary: {{ settings.color_text_secondary }};
+  --color-accent: {{ settings.color_accent }};
+  --color-accent-text: {{ settings.color_accent_text }};
+  --color-sale: {{ settings.color_sale }};
+  --accent-glow: {{ settings.color_accent | color_modify: 'alpha', 0.35 }};
+  --page-width: {{ settings.page_width }}px;
+  --section-spacing: {{ settings.spacing_sections }}px;
+  --radius-base: {{ settings.radius_base }}px;
+  --font-heading: {{ settings.font_heading.family }}, {{ settings.font_heading.fallback_families }};
+  --font-heading-weight: {{ settings.font_heading.weight }};
+  --font-heading-style: {{ settings.font_heading.style }};
+  --font-body: {{ settings.font_body.family }}, {{ settings.font_body.fallback_families }};
+  --font-body-weight: {{ settings.font_body.weight }};
+  --font-body-style: {{ settings.font_body.style }};
+}

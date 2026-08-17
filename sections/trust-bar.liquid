@@ -1,0 +1,59 @@
+{{ 'section-marketing.css' | asset_url | stylesheet_tag }}
+
+<section class="section section--tight trust-bar">
+  <div class="page-width">
+    <ul class="trust-bar__list" role="list">
+      {%- for block in section.blocks -%}
+        <li class="trust-bar__item" {{ block.shopify_attributes }}>
+          <span class="trust-bar__icon" aria-hidden="true">{{ block.settings.icon }}</span>
+          <span class="trust-bar__label">{{ block.settings.label }}</span>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Trust bar",
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefit",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Icon (emoji)",
+          "default": "🇿🇦"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "South African Delivery"
+        }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      { "type": "benefit", "settings": { "icon": "🇿🇦", "label": "South African Delivery" } },
+      { "type": "benefit", "settings": { "icon": "🔒", "label": "Secure Checkout" } },
+      { "type": "benefit", "settings": { "icon": "⚡", "label": "Practical Tech" } },
+      { "type": "benefit", "settings": { "icon": "↩️", "label": "Customer Support" } }
+    ]
+  },
+  "presets": [
+    {
+      "name": "Trust bar",
+      "blocks": [
+        { "type": "benefit", "settings": { "icon": "🇿🇦", "label": "South African Delivery" } },
+        { "type": "benefit", "settings": { "icon": "🔒", "label": "Secure Checkout" } },
+        { "type": "benefit", "settings": { "icon": "⚡", "label": "Practical Tech" } },
+        { "type": "benefit", "settings": { "icon": "↩️", "label": "Customer Support" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,53 @@
+{%- comment -%} JSON-LD structured data: sitewide Organization + WebSite, Product schema on PDP {%- endcomment -%}
+{%- assign socials = settings.social_instagram | append: '||' | append: settings.social_tiktok | append: '||' | append: settings.social_facebook | append: '||' | append: settings.social_twitter | append: '||' | append: settings.social_youtube | split: '||' -%}
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": {{ shop.name | json }},
+    "url": {{ shop.url | json }},
+    {%- if settings.logo %}
+    "logo": "https:{{ settings.logo | image_url: width: 400 }}",
+    {%- endif %}
+    "sameAs": [
+      {%- liquid
+        assign has_previous = false
+        for social_url in socials
+          if social_url != blank
+            if has_previous
+              echo ','
+            endif
+            echo social_url | json
+            assign has_previous = true
+          endif
+        endfor
+      -%}
+    ]
+  }
+</script>
+
+{%- if template == 'product' and product -%}
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org/",
+      "@type": "Product",
+      "name": {{ product.title | json }},
+      "description": {{ product.description | strip_html | json }},
+      "sku": {{ product.selected_or_first_available_variant.sku | json }},
+      {%- if product.featured_image %}
+      "image": ["https:{{ product.featured_image | image_url: width: 1200 }}"],
+      {%- endif %}
+      "brand": {
+        "@type": "Brand",
+        "name": {{ product.vendor | json }}
+      },
+      "offers": {
+        "@type": "Offer",
+        "url": {{ request.origin | append: product.url | json }},
+        "priceCurrency": {{ cart.currency.iso_code | json }},
+        "price": {{ product.selected_or_first_available_variant.price | money_without_currency | strip_html | json }},
+        "availability": "https://schema.org/{% if product.selected_or_first_available_variant.available %}InStock{% else %}OutOfStock{% endif %}"
+      }
+    }
+  </script>
+{%- endif -%}

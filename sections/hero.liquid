@@ -1,0 +1,100 @@
+{{ 'section-hero.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign primary_link = section.settings.primary_button_link | default: routes.all_products_collection_url
+  assign secondary_link = section.settings.secondary_button_link | default: routes.all_products_collection_url
+-%}
+<section class="hero">
+  <div class="page-width">
+    <div class="hero__grid">
+      <div class="hero__content">
+        {%- if section.settings.eyebrow != blank -%}
+          <span class="hero__eyebrow">{{ section.settings.eyebrow }}</span>
+        {%- endif -%}
+        <h1 class="hero__title">{{ section.settings.heading }}</h1>
+        {%- if section.settings.subheading != blank -%}
+          <p class="hero__subtitle">{{ section.settings.subheading }}</p>
+        {%- endif -%}
+        <div class="hero__actions">
+          {%- if section.settings.primary_button_label != blank -%}
+            <a href="{{ primary_link }}" class="btn btn-primary">{{ section.settings.primary_button_label }}</a>
+          {%- endif -%}
+          {%- if section.settings.secondary_button_label != blank -%}
+            <a href="{{ secondary_link }}" class="btn btn-secondary">{{ section.settings.secondary_button_label }}</a>
+          {%- endif -%}
+        </div>
+      </div>
+
+      <div class="hero__media">
+        {%- if section.settings.image != blank -%}
+          {{ section.settings.image | image_url: width: 1600 | image_tag:
+            widths: '600,900,1200,1600',
+            sizes: '(min-width: 990px) 50vw, 100vw',
+            alt: section.settings.image.alt | default: section.settings.heading,
+            loading: 'eager',
+            fetchpriority: 'high'
+          }}
+        {%- else -%}
+          <div class="hero__media-placeholder">{% render 'icon', name: 'image' %}</div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text (optional)"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "UPGRADE YOUR SETUP."
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Supporting text",
+      "default": "Smart tech & desk essentials for students and creators."
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Hero image"
+    },
+    {
+      "type": "text",
+      "id": "primary_button_label",
+      "label": "Primary button label",
+      "default": "SHOP NOW"
+    },
+    {
+      "type": "url",
+      "id": "primary_button_link",
+      "label": "Primary button link"
+    },
+    {
+      "type": "text",
+      "id": "secondary_button_label",
+      "label": "Secondary button label",
+      "default": "EXPLORE THE COLLECTION"
+    },
+    {
+      "type": "url",
+      "id": "secondary_button_link",
+      "label": "Secondary button link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero"
+    }
+  ]
+}
+{% endschema %}

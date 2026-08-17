@@ -1,0 +1,81 @@
+{{ 'section-marketing.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign link = section.settings.button_link | default: routes.all_products_collection_url
+-%}
+<section class="section setup-section">
+  <div class="page-width">
+    <div class="setup-section__grid{% if section.settings.image_position == 'right' %} spotlight__grid--reverse{% endif %}" data-animate>
+      <div class="setup-section__media">
+        {%- if section.settings.image != blank -%}
+          {{ section.settings.image | image_url: width: 1400 | image_tag:
+            widths: '600,900,1200,1400',
+            sizes: '(min-width: 990px) 55vw, 100vw',
+            alt: section.settings.image.alt | default: section.settings.heading,
+            loading: 'lazy'
+          }}
+        {%- else -%}
+          <div class="setup-section__placeholder">{% render 'icon', name: 'image' %}</div>
+        {%- endif -%}
+      </div>
+      <div class="setup-section__content">
+        <h2 class="setup-section__title">{{ section.settings.heading }}</h2>
+        <p class="setup-section__text">{{ section.settings.text }}</p>
+        {%- if section.settings.button_label != blank -%}
+          <a href="{{ link }}" class="btn btn-primary">{{ section.settings.button_label }}</a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Setup showcase",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image position",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "YOUR SETUP. YOUR SPACE."
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Text",
+      "default": "Build a workspace that helps you focus, create and get things done."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "SHOP DESK ESSENTIALS"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Setup showcase"
+    }
+  ]
+}
+{% endschema %}

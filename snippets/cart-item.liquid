@@ -1,0 +1,27 @@
+{%- comment -%}
+  Renders a single cart line item. Accepts: item (cart line item), line (1-based index)
+{%- endcomment -%}
+<div class="cart-item" data-cart-line="{{ line }}">
+  <a href="{{ item.url }}" class="cart-item__media" aria-hidden="true" tabindex="-1">
+    {%- if item.image -%}
+      {{ item.image | image_url: width: 200 | image_tag: alt: item.image.alt | default: item.title, loading: 'lazy', widths: '160,200' }}
+    {%- else -%}
+      <div class="product-card__placeholder">{% render 'icon', name: 'image' %}</div>
+    {%- endif -%}
+  </a>
+  <div class="cart-item__details">
+    <a href="{{ item.url }}" class="cart-item__title">{{ item.product.title }}</a>
+    {%- unless item.product.has_only_default_variant -%}
+      <span class="cart-item__variant">{{ item.variant.title }}</span>
+    {%- endunless -%}
+    <div class="quantity-selector">
+      <button type="button" data-quantity-step="-1" aria-label="{{ 'general.accessibility.decrease_quantity' | t }}">{% render 'icon', name: 'minus' %}</button>
+      <input type="number" min="0" value="{{ item.quantity }}" aria-label="{{ 'general.cart.quantity' | t }}" inputmode="numeric">
+      <button type="button" data-quantity-step="1" aria-label="{{ 'general.accessibility.increase_quantity' | t }}">{% render 'icon', name: 'plus' %}</button>
+    </div>
+    <button type="button" class="cart-item__remove" data-cart-remove="{{ line }}">{{ 'general.cart.remove' | t }}</button>
+  </div>
+  <div class="cart-item__aside">
+    <span class="cart-item__price">{{ item.final_line_price | money }}</span>
+  </div>
+</div>

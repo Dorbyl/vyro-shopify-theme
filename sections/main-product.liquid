@@ -1,0 +1,135 @@
+{{ 'template-product.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+-%}
+
+<section class="product page-width" data-product-root>
+  <script type="application/json" data-product-json>{{ product | json }}</script>
+
+  <div class="product__grid">
+    <div class="product-gallery">
+      <div class="product-gallery__main">
+        {%- if current_variant.featured_image -%}
+          <img
+            data-gallery-main-image
+            src="{{ current_variant.featured_image | image_url: width: 1200 }}"
+            alt="{{ current_variant.featured_image.alt | default: product.title }}"
+            width="1200"
+            height="{{ 1200 | divided_by: current_variant.featured_image.aspect_ratio }}"
+            fetchpriority="high"
+          >
+        {%- elsif product.featured_media -%}
+          <img
+            data-gallery-main-image
+            src="{{ product.featured_media | image_url: width: 1200 }}"
+            alt="{{ product.featured_media.alt | default: product.title }}"
+            width="1200"
+            height="{{ 1200 | divided_by: product.featured_media.aspect_ratio }}"
+            fetchpriority="high"
+          >
+        {%- else -%}
+          <div class="product-gallery__placeholder">{% render 'icon', name: 'image' %}</div>
+        {%- endif -%}
+      </div>
+
+      {%- if product.media.size > 1 -%}
+        <div class="product-gallery__thumbs">
+          {%- for media in product.media -%}
+            <button
+              type="button"
+              class="product-gallery__thumb{% if media.id == current_variant.featured_media.id or media.id == product.featured_media.id %} is-active{% endif %}"
+              data-gallery-thumb-id="{{ media.id }}"
+              data-gallery-thumb="{{ media | image_url: width: 1200 }}"
+              data-gallery-thumb-full="{{ media | image_url: width: 1200 }}"
+              data-gallery-thumb-alt="{{ media.alt | escape }}"
+            >
+              <img src="{{ media | image_url: width: 160 }}" alt="{{ media.alt | default: product.title }}" loading="lazy">
+            </button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="product-info">
+      {%- if product.vendor != blank -%}
+        <span class="product-info__vendor">{{ product.vendor }}</span>
+      {%- endif -%}
+      <h1 class="product-info__title">{{ product.title }}</h1>
+
+      <div class="product-info__price-row">
+        {% render 'price', product: product, variant: current_variant, data_attrs: true %}
+      </div>
+
+      {%- form 'product', product, data-product-form: '', class: 'product-form' -%}
+        <input type="hidden" name="id" value="{{ current_variant.id }}">
+        <input type="hidden" name="return_to" value="{{ routes.cart_url }}">
+
+        {%- for option in product.options_with_values -%}
+          <div class="product-form__option" data-option-position="{{ forloop.index0 }}">
+            <span class="product-form__option-label">
+              <span>{{ option.name }}</span>
+              <span data-selected-option-value>{{ option.selected_value }}</span>
+            </span>
+            <div class="swatch-list" role="radiogroup" aria-label="{{ option.name }}">
+              {%- for value in option.values -%}
+                <label class="swatch">
+                  <input
+                    type="radio"
+                    name="option-{{ forloop.parentloop.index0 }}"
+                    value="{{ value | escape }}"
+                    {% if option.selected_value == value %}checked{% endif %}
+                  >
+                  <span class="swatch__label">{{ value }}</span>
+                </label>
+              {%- endfor -%}
+            </div>
+          </div>
+        {%- endfor -%}
+
+        <div class="product-form__row">
+          <div class="quantity-selector">
+            <button type="button" data-quantity-step="-1" aria-label="{{ 'general.accessibility.decrease_quantity' | t }}">{% render 'icon', name: 'minus' %}</button>
+            <input type="number" name="quantity" min="1" value="1" aria-label="{{ 'products.product.quantity' | t }}" inputmode="numeric">
+            <button type="button" data-quantity-step="1" aria-label="{{ 'general.accessibility.increase_quantity' | t }}">{% render 'icon', name: 'plus' %}</button>
+          </div>
+
+          <button
+            type="submit"
+            class="btn btn-primary product-form__submit"
+            data-add-to-cart-submit
+            data-add-label="{{ 'products.product.add_to_cart' | t }}"
+            data-soldout-label="{{ 'products.product.sold_out' | t }}"
+            data-unavailable-label="{{ 'products.product.unavailable' | t }}"
+            {% unless current_variant.available %}disabled{% endunless %}
+          >
+            {%- if current_variant.available -%}
+              {{ 'products.product.add_to_cart' | t }}
+            {%- else -%}
+              {{ 'products.product.sold_out' | t }}
+            {%- endif -%}
+          </button>
+        </div>
+
+        {%- if current_variant.available -%}
+          <div class="product-form__buy-now">
+            {{ form | payment_button }}
+          </div>
+        {%- endif -%}
+      {%- endform -%}
+
+      <div class="accordion">
+        {% render 'accordion-item', title: 'products.product.description' | t, content: product.description, open: true %}
+        {% render 'accordion-item', title: 'products.product.shipping_info' | t, content: 'products.product.shipping_info_content' | t %}
+        {% render 'accordion-item', title: 'products.product.returns_info' | t, content: 'products.product.returns_info_content' | t %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product information",
+  "settings": []
+}
+{% endschema %}

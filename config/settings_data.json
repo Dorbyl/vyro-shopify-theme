@@ -1,0 +1,52 @@
+{
+  "current": {
+    "logo_width": 140,
+    "color_background": "#080A0D",
+    "color_surface": "#11151A",
+    "color_text_primary": "#F5F7FA",
+    "color_text_secondary": "#A7AFB8",
+    "color_accent": "#2563FF",
+    "color_accent_text": "#F5F7FA",
+    "color_sale": "#FF3B4C",
+    "font_heading": "space_grotesk_n7",
+    "font_body": "inter_n4",
+    "page_width": 1280,
+    "spacing_sections": 80,
+    "radius_base": 12,
+    "cart_type": "drawer",
+    "show_cart_note": false,
+    "contact_email": "hello@vyro.co.za",
+    "whatsapp_number": "",
+    "social_instagram": "",
+    "social_tiktok": "",
+    "social_facebook": "",
+    "social_twitter": "",
+    "social_youtube": ""
+  },
+  "presets": {
+    "VYRO": {
+      "logo_width": 140,
+      "color_background": "#080A0D",
+      "color_surface": "#11151A",
+      "color_text_primary": "#F5F7FA",
+      "color_text_secondary": "#A7AFB8",
+      "color_accent": "#2563FF",
+      "color_accent_text": "#F5F7FA",
+      "color_sale": "#FF3B4C",
+      "font_heading": "space_grotesk_n7",
+      "font_body": "inter_n4",
+      "page_width": 1280,
+      "spacing_sections": 80,
+      "radius_base": 12,
+      "cart_type": "drawer",
+      "show_cart_note": false,
+      "contact_email": "hello@vyro.co.za",
+      "whatsapp_number": "",
+      "social_instagram": "",
+      "social_tiktok": "",
+      "social_facebook": "",
+      "social_twitter": "",
+      "social_youtube": ""
+    }
+  }
+}

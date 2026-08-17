@@ -1,0 +1,112 @@
+{%- liquid
+  assign menu = section.settings.menu
+  assign cart_count = cart.item_count
+-%}
+<header class="site-header" data-site-header>
+  <div class="page-width site-header__inner">
+    <button class="header-icon-btn site-header__menu-toggle" data-mobile-nav-toggle aria-label="{{ 'general.accessibility.open_menu' | t }}" aria-expanded="false">
+      {% render 'icon', name: 'menu' %}
+    </button>
+
+    <a href="{{ routes.root_url }}" class="site-header__logo">
+      {%- if settings.logo != blank -%}
+        <img
+          src="{{ settings.logo | image_url: width: 400 }}"
+          alt="{{ shop.name }}"
+          width="{{ settings.logo_width }}"
+          height="{{ settings.logo_width | divided_by: settings.logo.aspect_ratio | default: settings.logo_width }}"
+          style="width: {{ settings.logo_width }}px;"
+        >
+      {%- else -%}
+        <span>VYRO</span>
+      {%- endif -%}
+    </a>
+
+    <nav class="site-header__nav" aria-label="Primary">
+      {%- for link in menu.links -%}
+        <a href="{{ link.url }}"{% if link.active %} class="is-active" aria-current="page"{% endif %}>{{ link.title }}</a>
+      {%- endfor -%}
+    </nav>
+
+    <div class="site-header__actions">
+      <button class="header-icon-btn" data-search-toggle aria-label="{{ 'general.search.title' | t }}">
+        {% render 'icon', name: 'search' %}
+      </button>
+      <a href="{{ routes.account_url }}" class="header-icon-btn" aria-label="{{ 'header.account' | t }}">
+        {% render 'icon', name: 'account' %}
+      </a>
+      {%- if settings.cart_type == 'drawer' -%}
+        <button class="header-icon-btn" data-cart-drawer-open aria-label="{{ 'general.accessibility.open_cart' | t }}">
+          {% render 'icon', name: 'cart' %}
+          <span class="header-icon-btn__count" data-cart-count{% if cart_count == 0 %} hidden{% endif %}>{{ cart_count }}</span>
+        </button>
+      {%- else -%}
+        <a href="{{ routes.cart_url }}" class="header-icon-btn" aria-label="{{ 'general.accessibility.open_cart' | t }}">
+          {% render 'icon', name: 'cart' %}
+          <span class="header-icon-btn__count" data-cart-count{% if cart_count == 0 %} hidden{% endif %}>{{ cart_count }}</span>
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</header>
+
+<div class="search-popover" data-search-popover>
+  <div class="search-popover__panel">
+    <div class="mobile-nav__header">
+      <span class="eyebrow">{{ 'general.search.title' | t }}</span>
+      <button class="header-icon-btn" data-panel-close aria-label="{{ 'general.accessibility.close' | t }}">{% render 'icon', name: 'close' %}</button>
+    </div>
+    <form action="{{ routes.search_url }}" method="get" role="search" class="search-popover__form">
+      <input type="hidden" name="type" value="product">
+      <input
+        class="input"
+        type="search"
+        name="q"
+        value="{{ search.terms | escape }}"
+        placeholder="{{ 'general.search.placeholder' | t }}"
+        aria-label="{{ 'general.search.placeholder' | t }}"
+      >
+      <button type="submit" class="btn btn-primary">{{ 'general.search.submit' | t }}</button>
+    </form>
+  </div>
+  <div class="search-popover__overlay" data-search-overlay style="position:absolute;inset:0;z-index:-1;"></div>
+</div>
+
+<div class="mobile-nav" data-mobile-nav>
+  <div class="mobile-nav__overlay" data-mobile-nav-overlay></div>
+  <div class="mobile-nav__panel">
+    <div class="mobile-nav__header">
+      <span class="site-header__logo">
+        {%- if settings.logo != blank -%}
+          <img src="{{ settings.logo | image_url: width: 240 }}" alt="{{ shop.name }}" style="width: {{ settings.logo_width | at_most: 120 }}px;">
+        {%- else -%}
+          <span>VYRO</span>
+        {%- endif -%}
+      </span>
+      <button class="header-icon-btn" data-panel-close aria-label="{{ 'general.accessibility.close_menu' | t }}">{% render 'icon', name: 'close' %}</button>
+    </div>
+    <nav class="mobile-nav__links" aria-label="Mobile">
+      {%- for link in menu.links -%}
+        <a href="{{ link.url }}">{{ link.title }}</a>
+      {%- endfor -%}
+    </nav>
+    <div class="mobile-nav__footer">
+      <a href="{{ routes.account_url }}">{{ 'header.account' | t }}</a>
+      {% render 'social-links', class: 'site-footer__social' %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Navigation menu",
+      "default": "main-menu"
+    }
+  ]
+}
+{% endschema %}

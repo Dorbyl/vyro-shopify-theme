@@ -1,0 +1,319 @@
+/* Trust / USP bar */
+.trust-bar__list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+
+@media screen and (min-width: 750px) {
+  .trust-bar__list {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.trust-bar__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.5rem;
+  padding: 1.25rem 0.75rem;
+}
+
+.trust-bar__icon {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.trust-bar__label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+/* Featured product spotlight */
+.spotlight__grid {
+  display: grid;
+  gap: 2.5rem;
+  align-items: center;
+  grid-template-columns: 1fr;
+}
+
+@media screen and (min-width: 990px) {
+  .spotlight__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+  }
+
+  .spotlight__grid--reverse {
+    direction: rtl;
+  }
+
+  .spotlight__grid--reverse > * {
+    direction: ltr;
+  }
+}
+
+.spotlight__media {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 30%, rgba(37, 99, 255, 0.18), transparent 65%), var(--color-surface);
+  border: 1px solid var(--color-border);
+}
+
+.spotlight__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.spotlight__placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-secondary);
+}
+
+.spotlight__placeholder svg {
+  width: 30%;
+  height: 30%;
+  opacity: 0.3;
+}
+
+.spotlight__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.25rem;
+}
+
+.spotlight__title {
+  font-size: clamp(1.75rem, 1.5rem + 1.2vw, 2.5rem);
+}
+
+.spotlight__description {
+  color: var(--color-text-secondary);
+  font-size: 1.0625rem;
+  max-width: 460px;
+}
+
+.spotlight__price {
+  font-size: 1.375rem;
+}
+
+.spotlight__benefits {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin: 0.25rem 0;
+}
+
+.spotlight__benefit {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  color: var(--color-text-secondary);
+  font-size: 0.9375rem;
+}
+
+.spotlight__benefit svg {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  color: var(--color-accent);
+  margin-top: 2px;
+}
+
+/* Why VYRO feature cards */
+.feature-cards {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: 1fr;
+}
+
+@media screen and (min-width: 750px) {
+  .feature-cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.feature-card {
+  padding: 2rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.feature-card__icon {
+  width: 46px;
+  height: 46px;
+  border-radius: var(--radius-sm);
+  background: rgba(37, 99, 255, 0.12);
+  color: var(--color-accent);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.feature-card__title {
+  font-size: 1.0625rem;
+  letter-spacing: 0.01em;
+}
+
+.feature-card__text {
+  color: var(--color-text-secondary);
+  font-size: 0.9375rem;
+}
+
+/* Setup / image-with-text section */
+.setup-section__grid {
+  display: grid;
+  gap: 2.5rem;
+  align-items: center;
+  grid-template-columns: 1fr;
+}
+
+@media screen and (min-width: 990px) {
+  .setup-section__grid {
+    grid-template-columns: 1.1fr 1fr;
+    gap: 3.5rem;
+  }
+}
+
+.setup-section__media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+}
+
+.setup-section__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.setup-section__placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-secondary);
+}
+
+.setup-section__placeholder svg {
+  width: 30%;
+  height: 30%;
+  opacity: 0.3;
+}
+
+.setup-section__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.25rem;
+}
+
+.setup-section__title {
+  font-size: clamp(1.75rem, 1.5rem + 1.2vw, 2.5rem);
+}
+
+.setup-section__text {
+  color: var(--color-text-secondary);
+  font-size: 1.0625rem;
+  max-width: 440px;
+}
+
+/* Testimonials / social proof */
+.testimonials {
+  text-align: center;
+}
+
+.testimonials__brand-message {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.testimonials__brand-message .section-title {
+  font-size: clamp(2rem, 1.6rem + 1.6vw, 3rem);
+}
+
+.testimonials__grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: 1fr;
+  margin-top: 2.5rem;
+}
+
+@media screen and (min-width: 750px) {
+  .testimonials__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.testimonial-card {
+  padding: 1.75rem;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.testimonial-card__quote {
+  color: var(--color-text-primary);
+  font-size: 1.0625rem;
+  line-height: 1.5;
+}
+
+.testimonial-card__author {
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+/* Newsletter */
+.newsletter {
+  text-align: center;
+}
+
+.newsletter__panel {
+  max-width: 560px;
+  margin: 0 auto;
+  padding: clamp(2rem, 1.6rem + 1.6vw, 3.5rem);
+  text-align: center;
+  background: radial-gradient(circle at 50% 0%, rgba(37, 99, 255, 0.14), transparent 60%), var(--color-surface);
+}
+
+.newsletter__form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+@media screen and (min-width: 560px) {
+  .newsletter__form {
+    flex-direction: row;
+  }
+}
+
+.newsletter__form .input {
+  flex: 1;
+}
+
+.newsletter__message {
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  color: var(--color-success);
+}
+
+.newsletter__message[data-error] {
+  color: var(--color-error);
+}

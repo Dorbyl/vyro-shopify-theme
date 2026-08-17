@@ -1,0 +1,61 @@
+{{ 'template-page.css' | asset_url | stylesheet_tag }}
+
+<section class="section about-hero">
+  <div class="page-width">
+    <div class="section-heading section-heading--center" data-animate>
+      <span class="eyebrow">{{ section.settings.eyebrow }}</span>
+      <h1 class="about-hero__title">{{ section.settings.heading }}</h1>
+    </div>
+
+    <div class="about-content" data-animate>
+      {{ section.settings.body }}
+    </div>
+
+    {%- if section.settings.image != blank -%}
+      <div class="about-media" data-animate>
+        {{ section.settings.image | image_url: width: 1600 | image_tag:
+          widths: '600,900,1200,1600',
+          sizes: '100vw',
+          alt: section.settings.image.alt | default: section.settings.heading,
+          loading: 'lazy'
+        }}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "About content",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "ABOUT VYRO"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Built for students, creators and better workspaces."
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Body copy",
+      "default": "<p>VYRO was created for students, creators and young people who want better technology and better workspaces without spending a fortune.</p><p>We focus on practical tech and desk essentials that make studying, working and creating easier.</p><p>From cleaner desks to smarter setups, every VYRO product is chosen with one goal in mind: help you build a setup you actually enjoy using.</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image (optional)"
+    }
+  ],
+  "presets": [
+    {
+      "name": "About content"
+    }
+  ]
+}
+{% endschema %}

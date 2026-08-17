@@ -1,0 +1,85 @@
+{{ 'section-marketing.css' | asset_url | stylesheet_tag }}
+
+<section class="section why-vyro">
+  <div class="page-width">
+    <div class="section-heading section-heading--center" data-animate>
+      <h2 class="section-title">{{ section.settings.heading }}</h2>
+      {%- if section.settings.subheading != blank -%}
+        <p class="section-subtitle">{{ section.settings.subheading }}</p>
+      {%- endif -%}
+    </div>
+
+    <div class="feature-cards">
+      {%- for block in section.blocks -%}
+        <div class="feature-card surface" data-animate {{ block.shopify_attributes }}>
+          {%- if block.settings.icon != blank -%}
+            <span class="feature-card__icon" aria-hidden="true">{{ block.settings.icon }}</span>
+          {%- endif -%}
+          <h3 class="feature-card__title">{{ block.settings.title }}</h3>
+          <p class="feature-card__text">{{ block.settings.text }}</p>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Why VYRO",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "WHY VYRO?"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Supporting text"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Icon (emoji, optional)"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "DESIGNED FOR REAL LIFE"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "Practical products for study, work and everyday use."
+        }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      { "type": "feature", "settings": { "icon": "🎯", "title": "DESIGNED FOR REAL LIFE", "text": "Practical products for study, work and everyday use." } },
+      { "type": "feature", "settings": { "icon": "🖥️", "title": "BETTER WORKSPACES", "text": "Small upgrades that make your setup feel better." } },
+      { "type": "feature", "settings": { "icon": "🚀", "title": "MADE FOR THE NEXT GENERATION", "text": "Modern tech essentials for students and creators." } }
+    ]
+  },
+  "presets": [
+    {
+      "name": "Why VYRO",
+      "blocks": [
+        { "type": "feature", "settings": { "icon": "🎯", "title": "DESIGNED FOR REAL LIFE", "text": "Practical products for study, work and everyday use." } },
+        { "type": "feature", "settings": { "icon": "🖥️", "title": "BETTER WORKSPACES", "text": "Small upgrades that make your setup feel better." } },
+        { "type": "feature", "settings": { "icon": "🚀", "title": "MADE FOR THE NEXT GENERATION", "text": "Modern tech essentials for students and creators." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,94 @@
+<footer class="site-footer">
+  <div class="page-width">
+    <div class="site-footer__grid">
+      <div class="site-footer__brand">
+        <a href="{{ routes.root_url }}" class="site-footer__logo">
+          {%- if settings.logo != blank -%}
+            <img src="{{ settings.logo | image_url: width: 300 }}" alt="{{ shop.name }}" style="width: {{ settings.logo_width | at_most: 160 }}px;">
+          {%- else -%}
+            <span>VYRO</span>
+          {%- endif -%}
+        </a>
+        {%- if section.settings.tagline != blank -%}
+          <p class="site-footer__tagline">{{ section.settings.tagline }}</p>
+        {%- endif -%}
+        {% render 'social-links' %}
+      </div>
+
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'link_list' -%}
+          <div class="site-footer__column" {{ block.shopify_attributes }}>
+            <h3 class="site-footer__heading">{{ block.settings.title }}</h3>
+            <ul class="site-footer__links">
+              {%- for link in block.settings.menu.links -%}
+                <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+              {%- endfor -%}
+            </ul>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+
+      <div class="site-footer__column">
+        <h3 class="site-footer__heading">Legal</h3>
+        <ul class="site-footer__links">
+          {%- if shop.policies.shipping_policy.url != blank -%}
+            <li><a href="{{ shop.policies.shipping_policy.url }}">Shipping &amp; Returns</a></li>
+          {%- elsif shop.policies.refund_policy.url != blank -%}
+            <li><a href="{{ shop.policies.refund_policy.url }}">Shipping &amp; Returns</a></li>
+          {%- endif -%}
+          {%- if shop.policies.privacy_policy.url != blank -%}
+            <li><a href="{{ shop.policies.privacy_policy.url }}">Privacy Policy</a></li>
+          {%- endif -%}
+          {%- if shop.policies.terms_of_service.url != blank -%}
+            <li><a href="{{ shop.policies.terms_of_service.url }}">Terms of Service</a></li>
+          {%- endif -%}
+        </ul>
+      </div>
+    </div>
+
+    <div class="site-footer__bottom">
+      <span>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. All rights reserved.</span>
+      <span class="site-footer__payment-note">Prices in {{ cart.currency.iso_code }}. Secure checkout by Shopify.</span>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "tagline",
+      "label": "Tagline",
+      "default": "UPGRADE YOUR SETUP. Smart tech and desk essentials for students and creators."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "link_list",
+      "name": "Link column",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Column heading",
+          "default": "Shop"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu",
+          "default": "footer"
+        }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      { "type": "link_list", "settings": { "title": "Shop" } },
+      { "type": "link_list", "settings": { "title": "Company" } }
+    ]
+  }
+}
+{% endschema %}
