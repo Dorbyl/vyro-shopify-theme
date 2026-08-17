@@ -118,6 +118,29 @@ shopify theme check
 **Do not run `shopify theme push --live`** or publish from the Shopify Admin until the
 theme has been reviewed on a development/unpublished theme.
 
+### If you upload via a ZIP file instead of the CLI
+
+Shopify Admin → Online Store → Themes → **Add theme → Upload zip file** requires
+`assets/`, `config/`, `layout/`, `locales/`, `sections/`, `snippets/`, `templates/` to sit
+at the **root of the ZIP archive** — not nested inside a wrapper folder.
+
+This bites people most often via GitHub's **Download ZIP** button, which wraps the whole
+repo in a folder like `vyro-shopify-theme-<branch>/`. Uploading that zip as-is can appear
+to "succeed" in the Admin, while template routing silently breaks — the most common visible
+symptom is the **homepage (`/`) rendering the theme's own 404 page**, even though every
+template and section file is valid. If that happens, it's a packaging issue, not a theme bug.
+
+Use the included script to build a correctly-rooted zip instead:
+
+```bash
+./package-theme.sh            # writes vyro-theme.zip with folders at the archive root
+./package-theme.sh my-name.zip
+```
+
+Then verify with `unzip -l vyro-theme.zip | head` that the first entries are `assets/`,
+`config/`, etc. — not a wrapper folder — before uploading. When in doubt, prefer
+`shopify theme push --unpublished` (above), which never has this failure mode.
+
 ## QA already performed on this build
 
 - Every `{% schema %}` block validated as parseable JSON.
